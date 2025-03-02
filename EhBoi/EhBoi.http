@@ -1,0 +1,6 @@
+@EhBoi_HostAddress = http://localhost:5273
+
+GET {{EhBoi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
