@@ -23,6 +23,26 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+       - postgres-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+        PGADMIN_DEFAULT_EMAIL: "douglasbarcelos02@gmail.com"
+        PGADMIN_DEFAULT_PASSWORD: "postgres"
+    ports:
+    - "15432:80"
+    depends_on:
+    - db
+    networks:
+    - postgres-network
+    restart: unless-stopped
 
 volumes:
-  postgres_data:
+    postgres_data:
+
+networks:
+    postgres-network:
+        driver: bridge    
