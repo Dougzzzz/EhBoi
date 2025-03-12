@@ -1,17 +1,19 @@
 version: '3.8'
 
 services:
-  app:
-    image: ehboi-app
-    build:
-      context: .
-      dockerfile: EhBoi/Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=myappdb;User Id=postgres;Password=mysecretpassword;
+  # app:
+  #   image: ehboi-app
+  #   build:
+  #     context: .
+  #     dockerfile: EhBoi/Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - ConnectionStrings__DefaultConnection=Server=db;Database=myappdb;User Id=postgres;Password=mysecretpassword;
+  #   networks:
+  #      - postgres-network
 
   db:
     image: postgres:latest
@@ -36,6 +38,8 @@ services:
     - "15432:80"
     depends_on:
     - db
+    volumes:
+      - ..\EhBoi.Infra\pgadmin-config\servers.json:/pgadmin4/servers.json
     networks:
     - postgres-network
     restart: unless-stopped
@@ -45,4 +49,4 @@ volumes:
 
 networks:
     postgres-network:
-        driver: bridge    
+        driver: bridge
