@@ -1,7 +1,6 @@
 ﻿using EhBoi.Infra.Data;
 using EhBoi.Infra.Interfaces;
 using Npgsql;
-using System.Text.Json;
 
 namespace EhBoi.Infra
 {
