@@ -1,4 +1,6 @@
+using EhBoi.Infra;
 using EhBoi.Infra.Data;
+using EhBoi.Infra.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,9 @@ builder.Services.AddDbContext<EhBoiDbContext>(options =>
     ));
 
 builder.Services.AddControllers();
+builder.Services.AddSingleton<IStatusRepository, StatusRepository>
+                (sp => new StatusRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
