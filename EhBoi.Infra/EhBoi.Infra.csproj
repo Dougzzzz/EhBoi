@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="pgadmin-config\servers.json" />
+    <Compile Remove="pgadmin-config\**" />
+    <EmbeddedResource Remove="pgadmin-config\**" />
+    <None Remove="pgadmin-config\**" />
   </ItemGroup>
 
   <ItemGroup>
