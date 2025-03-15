@@ -38,8 +38,6 @@ services:
     - "15432:80"
     depends_on:
     - db
-    volumes:
-      - ..\EhBoi.Infra\pgadmin-config\servers.json:/pgadmin4/servers.json
     networks:
     - postgres-network
     restart: unless-stopped
