@@ -1,3 +1,5 @@
+using EhBoi.Domain.Migrations;
+using EhBoi.Extensoes;
 using EhBoi.Infra;
 using EhBoi.Infra.Data;
 using EhBoi.Infra.Interfaces;
@@ -11,22 +13,18 @@ builder.Services.AddDbContext<EhBoiDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+builder.Services.AddScoped<ServicoDeMigrations<EhBoiDbContext>>();
 builder.Services.AddControllers();
 builder.Services.AddSingleton<IStatusRepository, StatusRepository>
                 (sp => new StatusRepository(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var dbContext = services.GetRequiredService<EhBoiDbContext>();
-    dbContext.Database.Migrate();
-}
+app.MigrateDatabase().Wait();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -42,3 +40,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
