@@ -25,7 +25,7 @@ namespace EhBoi.Extensoes
                 {
                     logger.LogError(ex, "Erro ao aplicar migrations. Tentativa {attempt} de {total}", i + 1, retries);
                     if (i == retries - 1) throw;
-                    await Task.Delay(2000); // Aguarda 2 segundos antes de tentar novamente
+                    await Task.Delay(2000);
                 }
             }
 
